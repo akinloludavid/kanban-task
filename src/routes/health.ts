@@ -3,6 +3,6 @@ import { healthCheck } from '../controllers/healthController'
 
 const router = Router()
 
-router.post('/health', healthCheck)
+router.get('/health', healthCheck)
 
 export default router

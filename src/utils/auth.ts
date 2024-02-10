@@ -1,8 +1,8 @@
 // src/utils/auth.ts
 import jwt from 'jsonwebtoken'
 import { CONFIG } from '../config/projectConfig'
-import { IUser } from '../models/user'
 import bcrypt from 'bcryptjs'
+import { IUser } from '../types'
 const JWT_SECRET_KEY = CONFIG.JWT_SECRET_KEY
 
 export const generateToken = (user: IUser): string => {
@@ -25,4 +25,11 @@ export const encryptPassword = async (password: string) => {
     const salt = await bcrypt.genSalt(12)
     password = await bcrypt.hash(password, salt)
     return password
+}
+
+export const comparePassword = async (
+    sentPassword: string,
+    hashedPassword: string,
+) => {
+    return await bcrypt.compare(sentPassword, hashedPassword)
 }
