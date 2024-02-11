@@ -9,7 +9,10 @@ const boardSchema = new Schema(
                 type: String,
             },
         ],
-        // author:{type: }
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
     },
     { timestamps: true },
 )

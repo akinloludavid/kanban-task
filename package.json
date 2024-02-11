@@ -6,13 +6,12 @@
     "scripts": {
         "dev": "nodemon",
         "build": "tsc -p .",
-        "prod": "npm run prepareDB && npx tsx --require ./dist/instrumentation.js dist/app.js",
-        "prod-new": "npm run build && npm run prepareDB && node dist/app.js",
+        "prod": "npm run build && node dist/index.js",
         "test": "jest",
         "test:watch": "jest --watchAll",
         "test:coverage": "jest --coverage"
     },
-    "type": "module",
+    "type": "commonjs",
     "keywords": [],
     "author": "",
     "license": "ISC",

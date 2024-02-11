@@ -3,7 +3,9 @@ import morgan from 'morgan'
 import { CONFIG } from './config/projectConfig'
 import healthRoute from './routes/health'
 import authRoute from './routes/auth'
-import boardsRoute from './routes/board'
+import boardsRoutes from './routes/board'
+import tasksRoutes from './routes/task'
+
 import { connectDB } from './database/db'
 const app = express()
 const PORT = CONFIG.SERVER.PORT
@@ -13,9 +15,12 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use('/v1', healthRoute)
 app.use('/v1', authRoute)
-app.use('/v1', boardsRoute)
+app.use('/v1', boardsRoutes)
+app.use('/v1', tasksRoutes)
+
 
 connectDB()
 app.listen(PORT, () => {
-    console.log('listening on port: ' + PORT)
+    if (process.env.NODE_ENV !== 'production')
+        console.log('listening on port: ' + PORT)
 })

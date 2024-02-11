@@ -1,12 +1,12 @@
 import { Response, Request, NextFunction } from 'express'
-import { createBoardValidation } from '../utils/validations'
+import { createTaskValidation } from '../utils/validations'
 
-export const validateCreateBoardPayload = (
+export const validateCreateTask = (
     req: Request,
     res: Response,
     next: NextFunction,
 ) => {
-    createBoardValidation
+    createTaskValidation
         .validateAsync(req.body, { abortEarly: false })
         .then(_value => {
             next()
