@@ -1,5 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
+import cors from 'cors'
 import { CONFIG } from './config/projectConfig'
 import healthRoute from './routes/health'
 import authRoute from './routes/auth'
@@ -12,6 +13,7 @@ const PORT = CONFIG.SERVER.PORT
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(cors())
 app.use(morgan('dev'))
 app.use('/v1', healthRoute)
 app.use('/v1', authRoute)
