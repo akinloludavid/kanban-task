@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { BoardModel } from '../models/board'
-import { returnSuccessResponse } from '../utils/responses'
+import { returnErrorResponse, returnSuccessResponse } from '../utils/responses'
 
 export const createBoard = async (req: any, res: Response) => {
     try {
@@ -24,9 +24,12 @@ export const createBoard = async (req: any, res: Response) => {
     }
 }
 
-export const getAllBoards = async (req: Request, res: Response) => {
+export const getAllBoards = async (req: any, res: Response) => {
     try {
         const boards = await BoardModel.find({})
+            .where({
+                author: req?.user?._id,
+            })
             .populate('author', 'username email')
             .exec()
         return returnSuccessResponse(res, 200, '', boards)
@@ -54,6 +57,10 @@ export const getBoardById = async (req: Request, res: Response) => {
 export const deleteBoard = async (req: Request, res: Response) => {
     const boardId = req.params.id
     try {
+        const board = await BoardModel.findById(boardId)
+        if (!board) {
+            return returnErrorResponse(res, 404, `Board not found`)
+        }
         await BoardModel.deleteOne({ _id: boardId })
 
         return returnSuccessResponse(res, 204, 'Board deleted')

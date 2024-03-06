@@ -14,6 +14,7 @@ export const createTaskValidation = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
     status: Joi.string().required(),
+    boardId: Joi.string().required(),
     subtasks: Joi.array().items(
         Joi.object({
             subtitle: Joi.string(),

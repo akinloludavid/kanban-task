@@ -7,7 +7,7 @@ export const createNewTask = async (req: any, res: Response) => {
         const taskPayload = {
             ...req.body,
             author: req.user._id,
-            board: req.params.boardId,
+            board: req.body.boardId,
         }
         const newBoard = await TaskModel.create(taskPayload)
         return returnSuccessResponse(
@@ -43,6 +43,7 @@ export const getAllTasks = async (req: Request, res: Response) => {
 export const getTaskById = async (req: Request, res: Response) => {
     try {
         const { taskId, boardId } = req.params
+
         const task = await TaskModel.findOne()
             .where('_id', taskId)
             .where('board', boardId)
@@ -87,7 +88,8 @@ export const deleteTask = async (req: any, res: Response) => {
 }
 
 export const updateTask = async (req: any, res: Response) => {
-    const { boardId, taskId } = req.params
+    const { taskId } = req.params
+    const { boardId } = req.body
     try {
         const task = await TaskModel.findOne()
             .where('_id', taskId)

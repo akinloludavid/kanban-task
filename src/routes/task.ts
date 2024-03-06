@@ -14,14 +14,9 @@ const router = Router()
 router.get('/tasks/:boardId', authenticateUser, getAllTasks)
 router.get('/task/:boardId/:taskId', authenticateUser, getTaskById)
 
-router.post(
-    '/tasks/:boardId',
-    authenticateUser,
-    validateCreateTask,
-    createNewTask,
-)
+router.post('/tasks', authenticateUser, validateCreateTask, createNewTask)
 router.put(
-    '/task/update/:boardId/:taskId',
+    '/task/update/:taskId',
     authenticateUser,
     validateCreateTask,
     updateTask,

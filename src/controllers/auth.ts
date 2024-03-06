@@ -15,13 +15,14 @@ export const createAccount = async (req: Request, res: Response) => {
             })
         }
         let newUser = new UserModel({
-            email,
+            email: email.toLowerCase(),
             password,
             username,
         })
         newUser.password = await encryptPassword(newUser.password)
         await UserModel.create(newUser)
         const token = generateToken(newUser)
+
         return res.status(201).json({
             status: 'success',
             token,
