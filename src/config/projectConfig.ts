@@ -31,3 +31,14 @@ export const CONFIG: ProjectConfiguration = {
     LOG_LEVEL,
     JWT_SECRET_KEY,
 }
+
+var whitelist = ['https://kanban-task-ak.netlify.app', 'http://localhost:5173']
+export const corsOptions = {
+    origin: function (origin: any, callback: any) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+}
