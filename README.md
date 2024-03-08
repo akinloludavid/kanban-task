@@ -1,0 +1,3 @@
+- Node version: v18
+- Package Manager: PNPM
+- Hosted on render
